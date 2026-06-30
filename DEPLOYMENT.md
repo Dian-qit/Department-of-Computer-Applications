@@ -2,7 +2,7 @@
 
 ## Railway backend
 
-Deploy the `backend` folder to Railway. The backend includes its own `requirements.txt`, `Procfile`, and `start.sh` so Railway can detect it as a Python app, apply migrations, collect static files, and run Gunicorn on Railway's `$PORT`.
+Deploy the repository root to Railway. The `Procfile` starts the Django backend from the `backend` folder, applies migrations, collects static files, and runs Gunicorn on Railway's `$PORT`.
 
 Set these Railway variables:
 
