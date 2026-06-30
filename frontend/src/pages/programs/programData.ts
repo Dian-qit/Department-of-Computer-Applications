@@ -10,7 +10,9 @@ export type ProgramProfile = {
   recognition: string;
   summary: string;
   route: string;
+  peos: string[];
   outcomes: string[];
+  tracks: string[];
   curriculumEvidence: string[];
   qualityEvidence: string[];
   admissions: string[];
@@ -27,19 +29,44 @@ export const bscaProgram: ProgramProfile = {
   units: "147 academic units plus NSTP, with 700-hour OJT",
   recognition: "BOR-approved curriculum, Resolution No. 129, Series of 2018",
   summary:
-    "The BSCA program prepares applied-computing professionals for software development, embedded systems, IoT, instrumentation, data handling, and technology-enabled organizational work.",
+    "Developing intelligent applications for connected communities, the BSCA program prepares RIDE graduates: Researchers, Innovators, Developers, and Educators with strong computing foundations, research preparation, and industry immersion.",
   route: "/programs/bsca",
+  peos: [
+    "Professional growth and advancement in career.",
+    "Pursuit of graduate studies or further training.",
+    "Continuous professional development and lifelong learning.",
+    "Ethical and competent practice of the computer applications profession.",
+  ],
   outcomes: [
-    "Apply computing, mathematics, electronics, and systems concepts to solve real organizational and community problems.",
-    "Design, implement, test, and document software and embedded-computing solutions using appropriate tools and standards.",
-    "Conduct supervised undergraduate research and communicate results through technical reports, presentations, and prototypes.",
-    "Demonstrate ethical, professional, collaborative, and lifelong-learning behavior in computing practice.",
+    "CA01 - Apply knowledge of mathematics and sciences to solve computer electronics problems.",
+    "CA02 - Analyze a problem, formulate, and identify solutions for computer applications and technology problems using analytical tools appropriate to areas of specialization.",
+    "CA03 - Apply design principles using software and firmware for broadly defined computer applications.",
+    "CA04 - Implement and evaluate computer application systems, components, or processes to meet specific needs.",
+    "CA05 - Select and apply appropriate techniques, resources, and modern computing and ICT tools necessary for computer applications practice.",
+    "CA06 - Function effectively as a member or leader of a development team, recognizing different roles within a team to accomplish a common goal.",
+    "CA07 - Communicate effectively with the computer applications community and society at large through logical writing, presentations, and clear instructions.",
+    "CA08 - Understand and commit to professional ethics, responsibilities, and norms of computer and cyber technology practice.",
+    "CA09 - Recognize the need for, and have the ability to engage in, independent learning for continual development as a technology specialist.",
+  ],
+  tracks: [
+    "Embedded Systems Track: edge devices, control, interfacing, and embedded intelligence.",
+    "Computer Vision.",
+    "HDL Programming.",
+    "Embedded Systems Programming.",
+    "Digital Signal Processing.",
+    "Internet of Things Track: connectivity, data exchange, smart monitoring, and intelligent systems.",
+    "Programming for IoT.",
+    "Applied IoT.",
+    "Artificial Intelligence in IoT.",
+    "Robotics Systems.",
   ],
   curriculumEvidence: [
-    "Structured four-year study plan with general education, professional computing courses, specialization courses, research, thesis, and OJT.",
-    "Specialization exposure includes embedded systems, computer vision, HDL programming, digital signal processing, IoT, AI for IoT, applied IoT, and robotics systems.",
-    "BCA197 On-the-Job Training requires 700 hours, giving accreditors a clear industry immersion point for outcomes evidence.",
-    "BCA198 Research Methods and BCA199 Undergraduate Thesis provide a visible student-research pathway.",
+    "Applied computing focus on real-world design, development, integration, and deployment of computing applications and systems.",
+    "Two specialization pathways in Embedded Systems and Internet of Things.",
+    "Hands-on laboratory and project work through programming demonstrations, guided laboratory sessions, and project-based learning.",
+    "Applied research, research methods, and undergraduate thesis development.",
+    "700-hour supervised industry immersion for workplace readiness, including opportunities with national and international companies.",
+    "Emerging technology orientation aligned with Industry 4.0, IoT, AI, and current technological demands.",
   ],
   qualityEvidence: [
     "Curriculum map showing every course contribution to program outcomes.",
@@ -78,11 +105,22 @@ export const mscaProgram: ProgramProfile = {
   summary:
     "The MSCA program develops graduate-level research capability in applied computing, embedded systems, IoT, machine learning, cloud computing, cybersecurity, analytics, and related computing applications.",
   route: "/programs/msca",
+  peos: [],
   outcomes: [
     "Formulate research problems grounded in computing theory, applied systems, and documented societal or industry need.",
     "Design and evaluate advanced computing solutions using rigorous methods, defensible data, and ethical research practice.",
     "Produce a thesis and a publication-quality research output appropriate for refereed or juried scholarly venues.",
     "Lead computing projects, mentor technical teams, and contribute to institutional research, extension, and innovation agendas.",
+  ],
+  tracks: [
+    "Advanced Embedded Systems.",
+    "Advanced Digital Signal Processing.",
+    "Advanced Computer Vision.",
+    "Applied Machine Learning for Embedded Systems.",
+    "Advanced Internet of Things.",
+    "Network Security for IoT.",
+    "Advanced Cloud Computing.",
+    "Applied Big-Data and Analytics for IoT.",
   ],
   curriculumEvidence: [
     "Core courses cover advanced computer organization, advanced operating systems, research methods, emerging technologies, ICT for peace and development, systematic review, and thesis.",
@@ -154,7 +192,9 @@ export function normalizeProgram(program: Program | undefined, fallback: Program
     recognition: program.recognition || fallback.recognition,
     summary: program.overview || fallback.summary,
     route: `/programs/${program.slug || fallback.slug}`,
+    peos: pickList(program.program_educational_objectives_list, fallback.peos),
     outcomes: pickList(program.outcomes_list, fallback.outcomes),
+    tracks: pickList(program.specialization_tracks_list, fallback.tracks),
     curriculumEvidence: pickList(program.curriculum_evidence_list, fallback.curriculumEvidence),
     qualityEvidence: pickList(program.quality_evidence_list, fallback.qualityEvidence),
     admissions: pickList(program.admission_requirements_list, fallback.admissions),
@@ -183,7 +223,9 @@ export function normalizePrograms(adminPrograms: Program[] | undefined): Program
       recognition: program.recognition || "Published program record",
       summary: program.overview,
       route: `/programs/${program.slug}`,
+      peos: program.program_educational_objectives_list || [],
       outcomes: program.outcomes_list || [],
+      tracks: program.specialization_tracks_list || [],
       curriculumEvidence: program.curriculum_evidence_list || [],
       qualityEvidence: program.quality_evidence_list || [],
       admissions: program.admission_requirements_list || [],

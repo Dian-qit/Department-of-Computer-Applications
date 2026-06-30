@@ -3,7 +3,9 @@ from .models import Program
 
 class ProgramSerializer(serializers.ModelSerializer):
     degree_level_display = serializers.CharField(source="get_degree_level_display", read_only=True)
+    program_educational_objectives_list = serializers.SerializerMethodField()
     outcomes_list = serializers.SerializerMethodField()
+    specialization_tracks_list = serializers.SerializerMethodField()
     curriculum_evidence_list = serializers.SerializerMethodField()
     quality_evidence_list = serializers.SerializerMethodField()
     career_opportunities_list = serializers.SerializerMethodField()
@@ -24,8 +26,12 @@ class ProgramSerializer(serializers.ModelSerializer):
             "duration",
             "curriculum_load",
             "recognition",
+            "program_educational_objectives",
+            "program_educational_objectives_list",
             "outcomes",
             "outcomes_list",
+            "specialization_tracks",
+            "specialization_tracks_list",
             "curriculum_evidence",
             "curriculum_evidence_list",
             "quality_evidence",
@@ -48,6 +54,12 @@ class ProgramSerializer(serializers.ModelSerializer):
 
     def get_outcomes_list(self, obj):
         return self._lines(obj.outcomes)
+
+    def get_program_educational_objectives_list(self, obj):
+        return self._lines(obj.program_educational_objectives)
+
+    def get_specialization_tracks_list(self, obj):
+        return self._lines(obj.specialization_tracks)
 
     def get_curriculum_evidence_list(self, obj):
         return self._lines(obj.curriculum_evidence)

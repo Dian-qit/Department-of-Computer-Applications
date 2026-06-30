@@ -67,8 +67,25 @@ export default function BSCA() {
 
       <Section variant="muted">
         <SectionHeader
+          title="Program Educational Objectives"
+          subtitle="The BSCA program develops graduates for career growth, graduate study, lifelong learning, and ethical professional practice."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          {program.peos.map((peo, index) => (
+            <div key={peo} className="card-elevated flex gap-4 p-5">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                {index + 1}
+              </div>
+              <p className="text-sm leading-6 text-muted-foreground">{peo}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeader
           title="Program Outcomes"
-          subtitle="These statements are written so they can be mapped to CHED policies, course outcomes, assessment rubrics, graduate attributes, and AUN-QA expected learning outcomes."
+          subtitle="The CA01-CA09 outcomes group graduate capability across foundations, design and implementation, teamwork and communication, ethics, and lifelong learning."
         />
         <div className="grid gap-4 md:grid-cols-2">
           {program.outcomes.map((outcome, index) => (
@@ -77,6 +94,20 @@ export default function BSCA() {
                 {index + 1}
               </div>
               <p className="text-sm leading-6 text-muted-foreground">{outcome}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section variant="muted">
+        <SectionHeader
+          title="Tracks and Focus Areas"
+          subtitle="The program’s distinctive applied-computing space is strengthened by embedded systems and Internet of Things pathways."
+        />
+        <div className="grid gap-3 md:grid-cols-2">
+          {program.tracks.map((track) => (
+            <div key={track} className="rounded-md border border-border bg-background p-4 text-sm leading-6 text-muted-foreground">
+              {track}
             </div>
           ))}
         </div>

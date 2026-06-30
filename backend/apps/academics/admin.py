@@ -31,7 +31,9 @@ class ProgramAdmin(admin.ModelAdmin):
         }),
         ("Accreditation-Ready Content", {
             "fields": (
+                "program_educational_objectives",
                 "outcomes",
+                "specialization_tracks",
                 "curriculum_evidence",
                 "quality_evidence",
             ),
