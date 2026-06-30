@@ -10,6 +10,8 @@ urlpatterns = [
     re_path(r"^(?!api/|admin/|assets/|media/).*$", FrontendAppView.as_view(), name="frontend"),
 ]
 
-if settings.DEBUG:
+if settings.DEBUG and settings.STATICFILES_DIRS:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
