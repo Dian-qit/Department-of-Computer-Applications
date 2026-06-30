@@ -1,5 +1,7 @@
+import type { Program } from "@/types/api";
+
 export type ProgramProfile = {
-  slug: "bsca" | "msca";
+  slug: string;
   code: string;
   title: string;
   level: string;
@@ -128,3 +130,66 @@ export const qaStandards = [
   "CHED COE readiness: strong faculty profile, research productivity, graduate outcomes, extension leadership, linkages, and visible centers of specialization.",
   "AUN-QA: program outcomes, curriculum design, teaching-learning strategy, student assessment, academic staff quality, support services, facilities, stakeholder feedback, and output measures.",
 ];
+
+const fallbackBySlug = {
+  bsca: bscaProgram,
+  msca: mscaProgram,
+};
+
+function pickList(adminItems: string[] | undefined, fallbackItems: string[]) {
+  return adminItems && adminItems.length > 0 ? adminItems : fallbackItems;
+}
+
+export function normalizeProgram(program: Program | undefined, fallback: ProgramProfile): ProgramProfile {
+  if (!program) return fallback;
+
+  return {
+    ...fallback,
+    code: program.code || fallback.code,
+    title: program.title || fallback.title,
+    slug: program.slug === "msca" ? "msca" : program.slug === "bsca" ? "bsca" : fallback.slug,
+    level: program.degree_level_display || fallback.level,
+    duration: program.duration || fallback.duration,
+    units: program.curriculum_load || fallback.units,
+    recognition: program.recognition || fallback.recognition,
+    summary: program.overview || fallback.summary,
+    route: `/programs/${program.slug || fallback.slug}`,
+    outcomes: pickList(program.outcomes_list, fallback.outcomes),
+    curriculumEvidence: pickList(program.curriculum_evidence_list, fallback.curriculumEvidence),
+    qualityEvidence: pickList(program.quality_evidence_list, fallback.qualityEvidence),
+    admissions: pickList(program.admission_requirements_list, fallback.admissions),
+    progression: pickList(program.progression_requirements_list, fallback.progression),
+    careers: pickList(program.career_opportunities_list, fallback.careers),
+  };
+}
+
+export function normalizePrograms(adminPrograms: Program[] | undefined): ProgramProfile[] {
+  if (!adminPrograms || adminPrograms.length === 0) return programs;
+
+  const merged = programs.map((fallback) => {
+    const adminProgram = adminPrograms.find((program) => program.slug === fallback.slug || program.code === fallback.code);
+    return normalizeProgram(adminProgram, fallback);
+  });
+
+  const extraPrograms = adminPrograms
+    .filter((program) => !fallbackBySlug[program.slug as keyof typeof fallbackBySlug])
+    .map((program) => ({
+      slug: program.slug === "msca" ? "msca" : "bsca",
+      code: program.code,
+      title: program.title,
+      level: program.degree_level_display || program.degree_level,
+      duration: program.duration || "See program details",
+      units: program.curriculum_load || "See approved curriculum",
+      recognition: program.recognition || "Published program record",
+      summary: program.overview,
+      route: `/programs/${program.slug}`,
+      outcomes: program.outcomes_list || [],
+      curriculumEvidence: program.curriculum_evidence_list || [],
+      qualityEvidence: program.quality_evidence_list || [],
+      admissions: program.admission_requirements_list || [],
+      progression: program.progression_requirements_list || [],
+      careers: program.career_opportunities_list || [],
+    }));
+
+  return [...merged, ...extraPrograms];
+}

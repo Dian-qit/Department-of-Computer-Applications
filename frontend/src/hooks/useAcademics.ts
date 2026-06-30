@@ -8,3 +8,10 @@ export function usePrograms() {
     queryFn: () => fetchJSON<Program[]>("/api/academics/programs/"),
   });
 }
+
+export function useProgram(slug: string) {
+  return useQuery<Program>({
+    queryKey: ["academics", "programs", slug],
+    queryFn: () => fetchJSON<Program>(`/api/academics/programs/${slug}/`),
+  });
+}

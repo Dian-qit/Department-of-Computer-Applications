@@ -1,7 +1,8 @@
 import { BookMarked, CheckCircle2, FileText, Microscope, ShieldCheck } from "lucide-react";
 import { PageHero } from "@/components/ui/hero-section";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { historicalLinkages, mscaProgram } from "./programData";
+import { useProgram } from "@/hooks/useAcademics";
+import { historicalLinkages, mscaProgram, normalizeProgram } from "./programData";
 
 function BulletPanel({ title, items }: { title: string; items: string[] }) {
   return (
@@ -39,21 +40,30 @@ const thesisSteps = [
 ];
 
 export default function MSCA() {
+  const { data, isError } = useProgram("msca");
+  const program = normalizeProgram(data, mscaProgram);
+  const notes = data?.historical_notes_list?.length ? data.historical_notes_list : historicalLinkages;
+
   return (
     <>
       <PageHero
-        title={mscaProgram.title}
+        title={program.title}
         subtitle="A thesis-based graduate program for advanced applied-computing research, publication, innovation, and technical leadership."
       />
 
       <Section>
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <p className="mb-6 text-lg leading-8 text-muted-foreground">{mscaProgram.summary}</p>
+            {isError && (
+              <p className="mb-4 rounded-md border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+                Showing built-in MSCA content because the live Django program record could not be reached.
+              </p>
+            )}
+            <p className="mb-6 text-lg leading-8 text-muted-foreground">{program.summary}</p>
             <div className="rounded-md border-l-4 border-secondary bg-secondary/10 p-5">
               <h2 className="mb-2 text-xl font-semibold text-primary">Graduate Program Identity</h2>
               <p className="text-sm leading-6 text-muted-foreground">
-                {mscaProgram.recognition}. The department should maintain dated curriculum approvals, graduate faculty
+                {program.recognition}. The department should maintain dated curriculum approvals, graduate faculty
                 qualifications, thesis supervision records, comprehensive examination evidence, publication records, and
                 research-utilization evidence.
               </p>
@@ -61,10 +71,10 @@ export default function MSCA() {
           </div>
           <dl className="grid gap-3">
             {[
-              ["Program Code", mscaProgram.code],
-              ["Level", mscaProgram.level],
-              ["Pathway", mscaProgram.duration],
-              ["Curriculum Load", mscaProgram.units],
+              ["Program Code", program.code],
+              ["Level", program.level],
+              ["Pathway", program.duration],
+              ["Curriculum Load", program.units],
             ].map(([label, value]) => (
               <div key={label} className="rounded-md border border-border bg-muted/30 p-4">
                 <dt className="text-sm font-semibold text-primary">{label}</dt>
@@ -81,7 +91,7 @@ export default function MSCA() {
           subtitle="These outcomes emphasize research depth, methodological discipline, scholarly output, and leadership, which are central to graduate accreditation and quality assurance."
         />
         <div className="grid gap-4 md:grid-cols-2">
-          {mscaProgram.outcomes.map((outcome, index) => (
+          {program.outcomes.map((outcome, index) => (
             <div key={outcome} className="card-elevated flex gap-4 p-5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-bold text-secondary-foreground">
                 {index + 1}
@@ -110,17 +120,17 @@ export default function MSCA() {
       <Section variant="muted">
         <SectionHeader title="Curriculum and Research Evidence" align="left" />
         <div className="grid gap-5 lg:grid-cols-2">
-          <BulletPanel title="Curriculum Features" items={mscaProgram.curriculumEvidence} />
-          <BulletPanel title="Evidence to Keep Ready" items={mscaProgram.qualityEvidence} />
+          <BulletPanel title="Curriculum Features" items={program.curriculumEvidence} />
+          <BulletPanel title="Evidence to Keep Ready" items={program.qualityEvidence} />
         </div>
       </Section>
 
       <Section>
         <SectionHeader title="Admission, Progression, and Graduate Roles" />
         <div className="grid gap-5 lg:grid-cols-3">
-          <BulletPanel title="Admission and Bridging" items={mscaProgram.admissions} />
-          <BulletPanel title="Progression Controls" items={mscaProgram.progression} />
-          <BulletPanel title="Graduate Roles" items={mscaProgram.careers} />
+          <BulletPanel title="Admission and Bridging" items={program.admissions} />
+          <BulletPanel title="Progression Controls" items={program.progression} />
+          <BulletPanel title="Graduate Roles" items={program.careers} />
         </div>
       </Section>
 
@@ -141,7 +151,7 @@ export default function MSCA() {
             partnership or scholarship opportunities.
           </p>
           <ul className="space-y-3">
-            {historicalLinkages.map((item) => (
+            {notes.map((item) => (
               <li key={item} className="flex gap-3 text-sm leading-6 text-muted-foreground">
                 <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-secondary" />
                 <span>{item}</span>
