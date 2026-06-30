@@ -116,6 +116,7 @@ WSGI_APPLICATION = "dca_site.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+RUNNING_ON_RAILWAY = bool(os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PUBLIC_DOMAIN"))
 
 if DATABASE_URL:
     DATABASES = {
@@ -125,6 +126,11 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
+elif RUNNING_ON_RAILWAY or not DEBUG:
+    raise RuntimeError(
+        "DATABASE_URL is required in production. Attach Railway Postgres to this service "
+        "so admin users and content persist across deploys."
+    )
 else:
     DATABASES = {
         'default': {
