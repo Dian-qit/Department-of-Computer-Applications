@@ -1,7 +1,8 @@
 import { CheckCircle2, FileCheck2, GraduationCap, ListChecks } from "lucide-react";
 import { PageHero } from "@/components/ui/hero-section";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { bscaProgram, qaStandards } from "./programData";
+import { useProgram } from "@/hooks/useAcademics";
+import { bscaProgram, normalizeProgram, qaStandards } from "./programData";
 
 function BulletPanel({ title, items }: { title: string; items: string[] }) {
   return (
@@ -20,21 +21,29 @@ function BulletPanel({ title, items }: { title: string; items: string[] }) {
 }
 
 export default function BSCA() {
+  const { data, isError } = useProgram("bsca");
+  const program = normalizeProgram(data, bscaProgram);
+
   return (
     <>
       <PageHero
-        title={bscaProgram.title}
+        title={program.title}
         subtitle="A four-year applied-computing degree with embedded systems, IoT, research, thesis, and supervised industry immersion."
       />
 
       <Section>
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <p className="mb-6 text-lg leading-8 text-muted-foreground">{bscaProgram.summary}</p>
+            {isError && (
+              <p className="mb-4 rounded-md border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+                Showing built-in BSCA content because the live Django program record could not be reached.
+              </p>
+            )}
+            <p className="mb-6 text-lg leading-8 text-muted-foreground">{program.summary}</p>
             <div className="rounded-md border-l-4 border-secondary bg-secondary/10 p-5">
               <h2 className="mb-2 text-xl font-semibold text-primary">Official Curriculum Identity</h2>
               <p className="text-sm leading-6 text-muted-foreground">
-                {bscaProgram.recognition}. The public page should be supported internally by the approved curriculum,
+                {program.recognition}. The public page should be supported internally by the approved curriculum,
                 curriculum map, syllabi, faculty loading, laboratory inventory, OJT records, thesis outputs, and annual
                 program-improvement minutes.
               </p>
@@ -42,10 +51,10 @@ export default function BSCA() {
           </div>
           <dl className="grid gap-3">
             {[
-              ["Program Code", bscaProgram.code],
-              ["Level", bscaProgram.level],
-              ["Duration", bscaProgram.duration],
-              ["Curriculum Load", bscaProgram.units],
+              ["Program Code", program.code],
+              ["Level", program.level],
+              ["Duration", program.duration],
+              ["Curriculum Load", program.units],
             ].map(([label, value]) => (
               <div key={label} className="rounded-md border border-border bg-muted/30 p-4">
                 <dt className="text-sm font-semibold text-primary">{label}</dt>
@@ -62,7 +71,7 @@ export default function BSCA() {
           subtitle="These statements are written so they can be mapped to CHED policies, course outcomes, assessment rubrics, graduate attributes, and AUN-QA expected learning outcomes."
         />
         <div className="grid gap-4 md:grid-cols-2">
-          {bscaProgram.outcomes.map((outcome, index) => (
+          {program.outcomes.map((outcome, index) => (
             <div key={outcome} className="card-elevated flex gap-4 p-5">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary text-sm font-bold text-secondary-foreground">
                 {index + 1}
@@ -76,17 +85,17 @@ export default function BSCA() {
       <Section>
         <SectionHeader title="Curriculum and Assessment Evidence" align="left" />
         <div className="grid gap-5 lg:grid-cols-2">
-          <BulletPanel title="Curriculum Features" items={bscaProgram.curriculumEvidence} />
-          <BulletPanel title="Evidence to Keep Ready" items={bscaProgram.qualityEvidence} />
+          <BulletPanel title="Curriculum Features" items={program.curriculumEvidence} />
+          <BulletPanel title="Evidence to Keep Ready" items={program.qualityEvidence} />
         </div>
       </Section>
 
       <Section variant="muted">
         <SectionHeader title="Student Pathway" />
         <div className="grid gap-5 lg:grid-cols-3">
-          <BulletPanel title="Admission and Advising" items={bscaProgram.admissions} />
-          <BulletPanel title="Progression and Retention" items={bscaProgram.progression} />
-          <BulletPanel title="Graduate Roles" items={bscaProgram.careers} />
+          <BulletPanel title="Admission and Advising" items={program.admissions} />
+          <BulletPanel title="Progression and Retention" items={program.progression} />
+          <BulletPanel title="Graduate Roles" items={program.careers} />
         </div>
       </Section>
 

@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Award, BookOpenCheck, ClipboardCheck, GraduationCap } from "lucide-react";
 import { PageHero } from "@/components/ui/hero-section";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { programs, qaStandards } from "./programData";
+import { usePrograms } from "@/hooks/useAcademics";
+import { normalizePrograms, qaStandards } from "./programData";
 
 const readinessItems = [
   {
@@ -23,6 +24,9 @@ const readinessItems = [
 ];
 
 export default function Programs() {
+  const { data, isError } = usePrograms();
+  const displayedPrograms = normalizePrograms(data);
+
   return (
     <>
       <PageHero
@@ -36,7 +40,7 @@ export default function Programs() {
           subtitle="These pages are written for students, faculty, administrators, CHED evaluators, AACCUP accreditors, and AUN-QA assessors who need clear program identity and evidence trails."
         />
         <div className="grid gap-6 lg:grid-cols-2">
-          {programs.map((program) => (
+          {displayedPrograms.map((program) => (
             <article key={program.slug} className="card-elevated flex h-full flex-col p-6">
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
@@ -84,6 +88,11 @@ export default function Programs() {
           title="Quality Assurance Readiness"
           subtitle="The Programs area should function as the public index of curriculum compliance, outcomes, assessment, student achievement, and continuous improvement evidence."
         />
+        {isError && (
+          <p className="mx-auto mb-6 max-w-3xl rounded-md border border-border bg-background p-4 text-center text-sm text-muted-foreground">
+            Showing built-in program content because the live academic program records could not be reached.
+          </p>
+        )}
         <div className="grid gap-5 lg:grid-cols-3">
           {readinessItems.map((item) => (
             <div key={item.title} className="card-elevated p-5">
