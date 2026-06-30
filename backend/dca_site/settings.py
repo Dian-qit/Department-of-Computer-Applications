@@ -33,7 +33,8 @@ SECRET_KEY = os.getenv(
     "django-insecure-oszto&fpaxwj5d!_#lsrub8i1gvctn^ztcw6i=4yo2^*@4#gqm"
 )
 
-DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
+DEFAULT_DEBUG = "False" if os.getenv("RAILWAY_ENVIRONMENT") or os.getenv("RAILWAY_PUBLIC_DOMAIN") else "True"
+DEBUG = os.getenv("DJANGO_DEBUG", DEFAULT_DEBUG).lower() == "true"
 
 ALLOWED_HOSTS = [
     "localhost",
