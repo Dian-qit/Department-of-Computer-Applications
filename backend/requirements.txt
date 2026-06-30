@@ -1,0 +1,8 @@
+Django~=6.0.0
+djangorestframework
+django-cors-headers
+Pillow
+dj-database-url
+gunicorn
+psycopg[binary]
+whitenoise
