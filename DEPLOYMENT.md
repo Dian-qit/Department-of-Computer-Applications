@@ -2,7 +2,7 @@
 
 ## Railway backend
 
-Deploy the repository root to Railway. The `Procfile` starts the Django backend from the `backend` folder, applies migrations, collects static files, and runs Gunicorn on Railway's `$PORT`.
+Deploy the `backend` folder to Railway. The backend service includes its own `requirements.txt`, `Procfile`, and `start.sh`.
 
 Set these Railway variables:
 
@@ -14,7 +14,16 @@ CORS_ALLOWED_ORIGINS=https://<your-vercel-domain>
 CSRF_TRUSTED_ORIGINS=https://<your-railway-domain>,https://<your-vercel-domain>
 ```
 
-If you add Railway Postgres, Railway will provide `DATABASE_URL` automatically and Django will use it. Without `DATABASE_URL`, the backend falls back to SQLite for local development.
+Add a Railway Postgres database to the project and connect it to the backend service. Railway will provide `DATABASE_URL` automatically. The deployed backend requires `DATABASE_URL`; this prevents admin users and CMS content from being lost on redeploy.
+
+After attaching Postgres, run:
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+Local development still falls back to SQLite when `DATABASE_URL` is not set.
 
 ## Vercel frontend
 
