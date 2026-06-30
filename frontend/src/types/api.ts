@@ -66,8 +66,12 @@ export interface Program {
   duration: string;
   curriculum_load: string;
   recognition: string;
+  program_educational_objectives: string;
+  program_educational_objectives_list: string[];
   outcomes: string;
   outcomes_list: string[];
+  specialization_tracks: string;
+  specialization_tracks_list: string[];
   curriculum_evidence: string;
   curriculum_evidence_list: string[];
   quality_evidence: string;
