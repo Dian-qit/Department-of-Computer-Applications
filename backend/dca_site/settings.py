@@ -13,9 +13,15 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent   # backend/
 REPO_DIR = BASE_DIR.parent                          # repo root
+
+
+def env_list(name, default=""):
+    return [item.strip() for item in os.getenv(name, default).split(",") if item.strip()]
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,10 +36,17 @@ SECRET_KEY = os.getenv(
 DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
-    'localhost', 
-    '127.0.0.1', 
-    '.pythonanywhere.com'
-    ]
+    "localhost",
+    "127.0.0.1",
+    ".pythonanywhere.com",
+    ".railway.app",
+    ".up.railway.app",
+]
+ALLOWED_HOSTS += env_list("ALLOWED_HOSTS")
+
+railway_public_domain = os.getenv("RAILWAY_PUBLIC_DOMAIN")
+if railway_public_domain:
+    ALLOWED_HOSTS.append(railway_public_domain)
 
 # Application definition
 
@@ -64,6 +77,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,12 +114,23 @@ WSGI_APPLICATION = "dca_site.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -137,13 +162,34 @@ USE_TZ = True
 
 # cleaner than /assets/
 STATIC_URL = "/assets/"
-STATICFILES_DIRS = [REPO_DIR / "frontend" / "dist" / "assets"]
+FRONTEND_ASSETS_DIR = REPO_DIR / "frontend" / "dist" / "assets"
+STATICFILES_DIRS = [FRONTEND_ASSETS_DIR] if FRONTEND_ASSETS_DIR.exists() else []
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS") or [
     "http://localhost:8080",
     "http://127.0.0.1:8080",
 ]
+CORS_ALLOWED_ORIGIN_REGEXES = env_list("CORS_ALLOWED_ORIGIN_REGEXES")
+
+CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = os.getenv("SECURE_SSL_REDIRECT", "True").lower() == "true"
+    SECURE_HSTS_SECONDS = int(os.getenv("SECURE_HSTS_SECONDS", "0"))
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = os.getenv("SECURE_HSTS_INCLUDE_SUBDOMAINS", "False").lower() == "true"
+    SECURE_HSTS_PRELOAD = os.getenv("SECURE_HSTS_PRELOAD", "False").lower() == "true"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
