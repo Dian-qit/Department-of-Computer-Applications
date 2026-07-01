@@ -107,7 +107,9 @@ export interface Program {
   og_title: string;
   og_description: string;
   canonical_url: string;
+  is_published: boolean;
   featured: boolean;
+  sort_order: number;
   updated_at: string;
 }
 
@@ -128,16 +130,29 @@ export interface FacultyMember {
   id: number;
   title: string;
   slug: string;
+  personnel_type: "faculty" | "academic_staff" | "laboratory_technician";
+  personnel_type_display: string;
+  faculty_status: "" | "active_full_time" | "study_leave" | "sabbatical_leave";
+  faculty_status_display: string;
   position: string;
+  employment_classification: string;
+  faculty_category: string;
+  highest_degree: string;
   email: string;
   phone: string;
   photo: string | null;
   educational_background: string;
+  specialization_areas: string;
   research_interests: string;
   courses_taught: string;
+  advising_areas: string;
   certifications: string;
   awards: string;
   office: string;
+  seo_title: string;
+  seo_description: string;
+  og_title: string;
+  og_description: string;
   featured: boolean;
   is_published: boolean;
   updated_at: string;
