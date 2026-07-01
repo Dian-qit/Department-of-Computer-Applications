@@ -104,11 +104,11 @@ const mscaFallback: ProgramProfile = {
   duration: placeholder,
   units: placeholder,
   recognition: "",
-  summary: "A graduate program focused on advanced computer applications, applied computing research, and a culminating Master’s Thesis.",
+  summary: "A graduate program focused on advanced computer applications, applied computing research, and a culminating Master’s Thesis or Graduate Thesis.",
   route: "/programs/msca",
   academicOrientation: "Graduate applied computing research and advanced computer applications.",
   intendedLearners: placeholder,
-  culminatingRequirement: "Master’s Thesis",
+  culminatingRequirement: "Master’s Thesis or Graduate Thesis",
   academicFocus: [
     "Applied computing research.",
     "Advanced computer applications.",
@@ -121,7 +121,7 @@ const mscaFallback: ProgramProfile = {
   academicAreas: [placeholder],
   curriculumStructure: [placeholder],
   thesisInformation: [
-    "The culminating academic requirement is the Master’s Thesis.",
+    "The culminating academic requirement is the Master’s Thesis or Graduate Thesis.",
     "Official thesis procedures, advising arrangements, and assessment documentation are To be provided by the Department.",
   ],
   advisingInformation: [placeholder],
@@ -140,7 +140,7 @@ const mscaFallback: ProgramProfile = {
   seoTitle: "Master of Science in Computer Applications",
   seoDescription: "Formal graduate program information for the Master of Science in Computer Applications.",
   ogTitle: "Master of Science in Computer Applications",
-  ogDescription: "Graduate academic program in applied computing research with a culminating Master’s Thesis.",
+  ogDescription: "Graduate academic program in applied computing research with a culminating Master’s Thesis or Graduate Thesis.",
   canonicalUrl: "",
   isFallback: true,
 };
