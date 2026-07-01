@@ -62,7 +62,10 @@ export function Breadcrumbs() {
 
   return (
     <nav aria-label="Breadcrumb" className="bg-muted/50 border-b border-border">
-      <div className="container py-3">
+      <div className="w-full bg-primary h-32">
+
+      </div>
+      <div className="container py-3 ">
         <ol className="flex items-center flex-wrap gap-1.5 text-sm">
           <li>
             <Link to="/" className="breadcrumb-link flex items-center gap-1 hover:text-primary">

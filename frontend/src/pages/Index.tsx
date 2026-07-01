@@ -17,9 +17,9 @@ export default function Index() {
         description="Official website of the Department of Computer Applications, College of Computer Studies, MSU-Iligan Institute of Technology."
       />
 
-      <section className="home-brand-hero py-16 md:py-24">
+      <section className="home-brand-hero  pt-40 pb-20 md:pt-52 md:pb-20">
         <BrandPattern />
-        <div className="container relative z-10 max-w-6xl">
+        <div className="container relative z-10 max-w-7xl">
           <div className="max-w-4xl">
             <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-cyan-100">{departmentIdentity.institution}</p>
             <p className="mb-2 text-lg font-semibold text-white/90">{departmentIdentity.college}</p>
