@@ -1,46 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Department of Computer Applications - Brand Design System */
-/* Navy #11133E | Teal #219197 | Royal Blue #1E498F | Steel Blue #7B98B0 | Light Grey #E4E4E5 | White #FDFEFD */
-
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap');
+/* Department of Computer Applications - Formal Brand System */
+/* Deep navy, institutional blue, teal/cyan accent, light academic surfaces */
 
 @layer base {
   :root {
     /* Core Brand Palette */
-    --background: 120 17% 99%;
-    --foreground: 237 57% 15%;
+    --background: 205 33% 98%;
+    --foreground: 220 54% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 237 57% 15%;
+    --card-foreground: 220 54% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 237 57% 15%;
+    --popover-foreground: 220 54% 13%;
 
-    /* Primary - Deep Navy #11133E */
-    --primary: 237 57% 15%;
+    /* Primary - Deep institutional navy */
+    --primary: 220 62% 13%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Teal #219197 (Primary CTAs, active states, highlights) */
-    --secondary: 183 64% 36%;
+    /* Secondary - DCA teal/cyan accent */
+    --secondary: 187 62% 40%;
     --secondary-foreground: 0 0% 100%;
 
     /* Muted - Soft steel tint */
-    --muted: 207 15% 94%;
-    --muted-foreground: 207 20% 40%;
+    --muted: 205 28% 94%;
+    --muted-foreground: 211 24% 36%;
 
-    /* Accent - Royal Blue #1E498F (links, icons, secondary CTAs) */
-    --accent: 217 65% 34%;
+    /* Accent - Institutional blue */
+    --accent: 209 78% 31%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 2% 90%;
-    --input: 240 2% 90%;
-    --ring: 217 65% 34%;
+    --border: 206 22% 86%;
+    --input: 206 22% 86%;
+    --ring: 187 62% 40%;
 
     --radius: 0.75rem;
 
@@ -86,9 +86,15 @@
     --warning-foreground: 237 57% 15%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(237 57% 12%) 0%, hsl(237 57% 18%) 50%, hsl(217 60% 25%) 100%);
+    --brand-navy: 220 62% 13%;
+    --brand-blue: 209 78% 31%;
+    --brand-teal: 187 62% 40%;
+    --brand-cyan: 191 68% 55%;
+    --brand-surface: 205 33% 98%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand-navy)) 0%, hsl(var(--brand-blue)) 54%, hsl(var(--brand-teal)) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(120 17% 99%) 100%);
-    --gradient-subtle: linear-gradient(180deg, hsl(120 17% 99%) 0%, hsl(207 15% 95%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--brand-surface)) 0%, hsl(205 30% 94%) 100%);
 
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(237 57% 15% / 0.05);
@@ -187,14 +193,67 @@
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
+  .brand-network {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.2;
+    background-image:
+      radial-gradient(circle at 12% 22%, hsl(0 0% 100% / 0.95) 0 3px, transparent 4px),
+      radial-gradient(circle at 20% 72%, hsl(0 0% 100% / 0.75) 0 2px, transparent 3px),
+      radial-gradient(circle at 82% 28%, hsl(0 0% 100% / 0.85) 0 3px, transparent 4px),
+      radial-gradient(circle at 88% 74%, hsl(0 0% 100% / 0.75) 0 2px, transparent 3px),
+      linear-gradient(118deg, transparent 0 14%, hsl(0 0% 100% / 0.28) 14.2% 14.5%, transparent 14.7% 100%),
+      linear-gradient(32deg, transparent 0 20%, hsl(0 0% 100% / 0.2) 20.2% 20.45%, transparent 20.7% 100%),
+      linear-gradient(145deg, transparent 0 72%, hsl(0 0% 100% / 0.2) 72.2% 72.45%, transparent 72.7% 100%),
+      linear-gradient(55deg, transparent 0 82%, hsl(0 0% 100% / 0.22) 82.2% 82.45%, transparent 82.7% 100%);
+  }
+
+  .brand-network-subtle {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-network-subtle::after {
+    content: "";
+    position: absolute;
+    inset: auto -8rem -7rem auto;
+    width: 22rem;
+    height: 16rem;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image:
+      radial-gradient(circle at 14% 22%, hsl(var(--accent)) 0 3px, transparent 4px),
+      radial-gradient(circle at 60% 35%, hsl(var(--secondary)) 0 2px, transparent 3px),
+      radial-gradient(circle at 80% 72%, hsl(var(--accent)) 0 3px, transparent 4px),
+      linear-gradient(33deg, transparent 0 45%, hsl(var(--accent)) 45.2% 45.6%, transparent 45.8% 100%),
+      linear-gradient(116deg, transparent 0 50%, hsl(var(--secondary)) 50.2% 50.6%, transparent 50.8% 100%);
+  }
+
+  .home-brand-hero {
+    @apply relative overflow-hidden border-b border-border text-white;
+    background:
+      linear-gradient(180deg, hsl(var(--brand-navy) / 0.95), hsl(var(--brand-blue) / 0.88)),
+      radial-gradient(circle at 78% 20%, hsl(var(--brand-cyan) / 0.28), transparent 30%),
+      var(--gradient-hero);
+  }
+
+  .page-header-formal {
+    @apply border-b border-border bg-background py-12 md:py-16;
+  }
+
+  .page-header-formal .page-header-accent {
+    @apply mb-4 h-1 w-16 rounded-full;
+    background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--secondary)));
+  }
+
   /* CTA Button Variants */
   .btn-cta-primary {
-    @apply bg-secondary text-secondary-foreground font-semibold px-6 py-3 rounded-lg transition-all duration-200;
-    box-shadow: var(--shadow-teal);
+    @apply bg-secondary text-secondary-foreground font-semibold px-5 py-2.5 rounded-md transition-colors duration-200;
+    box-shadow: none;
   }
 
   .btn-cta-primary:hover {
-    @apply scale-105;
     filter: brightness(0.9);
   }
 
@@ -208,13 +267,12 @@
 
   /* Card Variants */
   .card-elevated {
-    @apply bg-card rounded-xl border border-border transition-all duration-300;
+    @apply bg-card rounded-md border border-border transition-colors duration-200;
     box-shadow: var(--shadow-card);
   }
 
   .card-elevated:hover {
-    box-shadow: var(--shadow-lg);
-    @apply -translate-y-1;
+    box-shadow: var(--shadow-md);
     border-color: hsl(var(--secondary) / 0.3);
   }
 

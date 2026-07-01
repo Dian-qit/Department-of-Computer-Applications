@@ -47,7 +47,7 @@ function DocumentLink({ label, href, note }: { label: string; href?: string; not
 
 function ProgramCard({ program }: { program: ProgramProfile }) {
   return (
-    <article className="rounded-md border border-border bg-background p-6">
+    <article className="brand-network-subtle rounded-md border border-border bg-background p-6">
       <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-secondary">{program.level}</p>
       <h2 className="mb-3 text-2xl font-semibold text-primary">{program.title}</h2>
       <p className="mb-5 text-sm leading-6 text-muted-foreground">{program.summary}</p>

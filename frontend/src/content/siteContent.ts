@@ -1,7 +1,7 @@
 export const departmentIdentity = {
   name: "Department of Computer Applications",
   college: "College of Computer Studies",
-  institution: "MSU-Iligan Institute of Technology",
+  institution: "Mindanao State University – Iligan Institute of Technology",
   address: "Andres Bonifacio Avenue, Iligan City, 9200 Philippines",
   email: "ccs.ca@g.msuiit.edu.ph",
   phone: "To be provided by the Department",
