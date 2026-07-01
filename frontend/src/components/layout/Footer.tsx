@@ -21,6 +21,7 @@ const footerSections = [
 export function Footer() {
   return (
     <footer className="border-t border-border bg-primary text-primary-foreground">
+      <div className="h-1 bg-gradient-to-r from-accent via-secondary to-cyan-300" />
       <div className="container grid gap-10 py-10 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="mb-5 flex items-center gap-3">
@@ -28,6 +29,7 @@ export function Footer() {
             <div>
               <div className="font-semibold">{departmentIdentity.name}</div>
               <div className="text-sm opacity-80">{departmentIdentity.college}</div>
+              <div className="text-xs opacity-70">{departmentIdentity.institution}</div>
             </div>
           </Link>
           <div className="space-y-3 text-sm opacity-90">

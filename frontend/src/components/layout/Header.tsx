@@ -18,8 +18,8 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background">
-      <div className="border-b border-border bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/98 backdrop-blur">
+      <div className="border-b border-white/10 bg-primary text-primary-foreground">
         <div className="container flex items-center justify-between py-2 text-xs md:text-sm">
           <span>{departmentIdentity.institution}</span>
           <button

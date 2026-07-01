@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { departmentIdentity } from "@/content/siteContent";
 import { cn } from "@/lib/utils";
 
 interface HeroSectionProps {
@@ -61,8 +62,16 @@ interface PageHeroProps {
 
 export function PageHero({ title, subtitle, children }: PageHeroProps) {
   return (
-    <HeroSection title={title} subtitle={subtitle} size="sm">
-      {children}
-    </HeroSection>
+    <section className="page-header-formal brand-network-subtle">
+      <div className="container relative z-10">
+        <div className="max-w-4xl">
+          <div className="page-header-accent" />
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-secondary">{departmentIdentity.name}</p>
+          <h1 className="mb-4 text-3xl font-bold leading-tight text-primary md:text-4xl">{title}</h1>
+          {subtitle && <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">{subtitle}</p>}
+          {children && <div className="mt-6">{children}</div>}
+        </div>
+      </div>
+    </section>
   );
 }

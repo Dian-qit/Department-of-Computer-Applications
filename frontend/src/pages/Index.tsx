@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { BrandPattern } from "@/components/brand/BrandPattern";
 import { Seo } from "@/components/Seo";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { departmentIdentity, homepageSections, placeholder } from "@/content/siteContent";
+import { departmentIdentity, homepageSections, placeholder, primaryNavigation } from "@/content/siteContent";
 import { useNews } from "@/hooks/useCommunications";
 
 export default function Index() {
@@ -16,15 +17,32 @@ export default function Index() {
         description="Official website of the Department of Computer Applications, College of Computer Studies, MSU-Iligan Institute of Technology."
       />
 
-      <section className="border-b border-border bg-background py-16 md:py-20">
-        <div className="container max-w-5xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-secondary">{departmentIdentity.college}</p>
-          <h1 className="mb-5 text-3xl font-bold leading-tight text-primary md:text-5xl">{departmentIdentity.name}</h1>
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
-            The Department of Computer Applications is an academic department of the College of Computer Studies,
-            MSU-Iligan Institute of Technology. This website provides official information on academic programs,
-            faculty, research, extension, facilities, quality assurance, and department announcements.
-          </p>
+      <section className="home-brand-hero py-16 md:py-24">
+        <BrandPattern />
+        <div className="container relative z-10 max-w-6xl">
+          <div className="max-w-4xl">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-cyan-100">{departmentIdentity.institution}</p>
+            <p className="mb-2 text-lg font-semibold text-white/90">{departmentIdentity.college}</p>
+            <h1 className="mb-6 text-4xl font-bold leading-tight text-white md:text-6xl">{departmentIdentity.name}</h1>
+            <p className="max-w-3xl text-base leading-7 text-white/88 md:text-lg">
+              Official website of the Department of Computer Applications, providing public information on academic
+              programs, faculty, research, extension, facilities, quality assurance, and department announcements.
+            </p>
+          </div>
+
+          <nav className="mt-10 flex flex-wrap gap-3" aria-label="Homepage primary links">
+            {primaryNavigation
+              .filter((item) => ["Academic Programs", "Faculty", "Research", "Extension", "Facilities", "Quality Assurance", "News and Events", "Contact"].includes(item.label))
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="rounded-md border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/18"
+                >
+                  {item.label}
+                </Link>
+              ))}
+          </nav>
         </div>
       </section>
 

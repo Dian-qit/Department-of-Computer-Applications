@@ -2,7 +2,7 @@ import { CheckCircle2 } from "lucide-react";
 import { PageHero } from "@/components/ui/hero-section";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { useProgram } from "@/hooks/useAcademics";
-import { bscaProgram, evidenceMatrix, normalizeProgram } from "./programData";
+import { bscaProgram, normalizeProgram } from "./programData";
 
 function EvidenceList({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
@@ -108,24 +108,12 @@ export default function BSCA() {
       </Section>
 
       <Section variant="muted">
-        <SectionHeader title="Framework Alignment" align="left" />
-        <div className="overflow-hidden rounded-md border border-border bg-background">
-          <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-muted/60 text-primary">
-              <tr>
-                <th className="border-b border-border p-4 font-semibold">Framework</th>
-                <th className="border-b border-border p-4 font-semibold">Evidence Expected from BSCA</th>
-              </tr>
-            </thead>
-            <tbody>
-              {evidenceMatrix.map((item) => (
-                <tr key={item.framework} className="align-top">
-                  <td className="border-b border-border p-4 font-semibold text-primary">{item.framework}</td>
-                  <td className="border-b border-border p-4 leading-6 text-muted-foreground">{item.evidence}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <SectionHeader title="Quality Assurance" align="left" />
+        <div className="rounded-md border border-border bg-background p-5">
+          <p className="text-sm leading-6 text-muted-foreground">
+            Detailed quality-assurance and accreditation documentation for the BSCA program is maintained separately by
+            the Department and College.
+          </p>
         </div>
       </Section>
     </>
