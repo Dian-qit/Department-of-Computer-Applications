@@ -44,8 +44,10 @@ function DocumentLink({ label, href, note }: { label: string; href?: string; not
 }
 
 function ProgramCard({ program }: { program: ProgramProfile }) {
+  const curriculumDocument = program.documents.find((document) => document.label.toLowerCase().includes("curriculum"));
+
   return (
-    <article className="brand-network-subtle rounded-md border border-border bg-background p-6">
+    <article id={program.slug} className="brand-network-subtle rounded-md border border-border bg-background p-6">
       <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-secondary">{program.level}</p>
       <h2 className="mb-3 text-2xl font-semibold text-primary">{program.title}</h2>
       <p className="mb-5 text-sm leading-6 text-muted-foreground">{program.summary}</p>
@@ -86,9 +88,18 @@ function ProgramCard({ program }: { program: ProgramProfile }) {
         >
           View Program Details <ArrowRight className="h-4 w-4" />
         </Link>
-        <span className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm text-muted-foreground">
-          Curriculum document: {program.documents[0]?.href ? "Available for download" : placeholder}
-        </span>
+        {curriculumDocument?.href ? (
+          <a
+            href={curriculumDocument.href}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-semibold text-primary hover:border-secondary hover:text-secondary"
+          >
+            Download Curriculum
+          </a>
+        ) : (
+          <span className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm text-muted-foreground">
+            Download Curriculum: {placeholder}
+          </span>
+        )}
       </div>
     </article>
   );
@@ -111,7 +122,10 @@ function ProgramComparison({ programs }: { programs: ProgramProfile[] }) {
         <tbody className="divide-y divide-border">
           {programs.map((program) => (
             <tr key={program.slug}>
-              <th scope="row" className="px-4 py-4 align-top font-semibold text-primary">{program.code}</th>
+              <th scope="row" className="px-4 py-4 align-top font-semibold text-primary">
+                <span>{program.title}</span>
+                <span className="block text-xs font-normal text-muted-foreground">{program.code}</span>
+              </th>
               <td className="px-4 py-4 align-top text-muted-foreground">{program.level}</td>
               <td className="px-4 py-4 align-top text-muted-foreground">{program.academicOrientation}</td>
               <td className="px-4 py-4 align-top text-muted-foreground">{program.culminatingRequirement}</td>
@@ -124,41 +138,7 @@ function ProgramComparison({ programs }: { programs: ProgramProfile[] }) {
   );
 }
 
-function ProgramSection({ program }: { program: ProgramProfile }) {
-  const isGraduate = program.level.toLowerCase().includes("graduate");
 
-  return (
-    <Section id={program.slug} variant={program.slug === "msca" ? "muted" : "default"}>
-      <SectionHeader title={program.title} subtitle={program.summary} align="left" />
-
-      <dl className="mb-8 grid gap-4 md:grid-cols-3">
-        <div className="rounded-md border border-border bg-background p-4">
-          <dt className="text-sm font-semibold text-primary">Degree Level</dt>
-          <dd className="mt-1 text-sm text-muted-foreground">{program.level}</dd>
-        </div>
-        <div className="rounded-md border border-border bg-background p-4">
-          <dt className="text-sm font-semibold text-primary">Duration / Pathway</dt>
-          <dd className="mt-1 text-sm text-muted-foreground">{program.duration}</dd>
-        </div>
-        <div className="rounded-md border border-border bg-background p-4">
-          <dt className="text-sm font-semibold text-primary">Culminating Requirement</dt>
-          <dd className="mt-1 text-sm text-muted-foreground">{program.culminatingRequirement}</dd>
-        </div>
-      </dl>
-
-      <div className="grid gap-5 lg:grid-cols-2">
-        <ListBlock title={isGraduate ? "Graduate Program Goals" : "Program Goals"} items={program.goals} />
-        <ListBlock title={isGraduate ? "Graduate Learning Outcomes" : "Expected Learning Outcomes"} items={program.outcomes} ordered />
-        <ListBlock title="Curriculum Structure" items={program.curriculumStructure} />
-        <ListBlock title={isGraduate ? "Research Areas" : "Major Academic Areas"} items={program.academicAreas} />
-        <ListBlock title={isGraduate ? "Master’s Thesis" : "Undergraduate Thesis"} items={program.thesisInformation} />
-        <ListBlock title={isGraduate ? "Graduate Advising and Faculty" : "Student Support and Facilities"} items={isGraduate ? program.advisingInformation : program.studentSupport} />
-        <ListBlock title="Admission Information" items={program.admissions} />
-        <ListBlock title={isGraduate ? "Graduate Pathways" : "Career and Further Study Pathways"} items={program.pathways} />
-      </div>
-    </Section>
-  );
-}
 
 export default function Programs() {
   const { data, isError } = usePrograms();
@@ -214,7 +194,7 @@ export default function Programs() {
         </nav>
 
         <SectionHeader
-          title="Programs Overview"
+          title="Program Overview"
           subtitle="The following programs are presented for prospective students, current students, faculty, partners, and external reviewers."
           align="left"
         />
@@ -238,10 +218,6 @@ export default function Programs() {
         />
         <ProgramComparison programs={displayedPrograms} />
       </Section>
-
-      {displayedPrograms.map((program) => (
-        <ProgramSection key={program.slug} program={program} />
-      ))}
 
       <Section>
         <SectionHeader title="Quality Assurance" align="left" />

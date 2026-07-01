@@ -45,8 +45,8 @@ function DocumentPanel({ program }: { program: ProgramProfile }) {
           <div>
             <h3 className="text-sm font-semibold text-primary">{document.label}</h3>
             {document.href ? (
-              <a href={document.href} className="text-sm font-semibold text-accent hover:text-secondary">
-                Download document
+              <a href={document.href} className="text-sm font-semibold text-accent hover:text-secondary" aria-label={`Download ${document.label}`}>
+                Download {document.label}
               </a>
             ) : (
               <p className="text-sm text-muted-foreground">{document.note || placeholder}</p>
@@ -166,14 +166,7 @@ export function ProgramDetailPage({
         <QualityAssuranceNote />
       </Section>
 
-      {program.historicalNotes.length > 0 && (
-        <Section variant="muted">
-          <SectionHeader title="Historical Notes" align="left" />
-          <ListPanel title="Validated Historical Records" items={program.historicalNotes} />
-        </Section>
-      )}
-
-      <Section id="program-inquiries">
+          <Section id="program-inquiries">
         <SectionHeader title="Contact / Inquiry" align="left" />
         <div className="rounded-md border border-border bg-background p-5">
           <dl className="grid gap-4 text-sm md:grid-cols-2">
