@@ -8,3 +8,11 @@ export function useFaculty() {
     queryFn: () => fetchJSON<FacultyMember[]>("/api/people/faculty/"),
   });
 }
+
+export function useFacultyMember(slug: string | undefined) {
+  return useQuery<FacultyMember>({
+    queryKey: ["people", "faculty", slug],
+    queryFn: () => fetchJSON<FacultyMember>(`/api/people/faculty/${slug}/`),
+    enabled: Boolean(slug),
+  });
+}
