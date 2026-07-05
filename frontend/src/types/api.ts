@@ -126,37 +126,237 @@ export interface ProgramDocument {
   updated_at: string;
 }
 
-export interface FacultyMember {
+export type FacultyServiceClassification =
+  | "active_dca_faculty"
+  | "affiliated_msca_faculty"
+  | "retired_dca_faculty"
+  | "academic_staff"
+  | "laboratory_personnel";
+
+export type FacultyStatus = "" | "active" | "active_full_time" | "study_leave" | "sabbatical_leave" | "retired" | "inactive_affiliation";
+
+export interface FacultyDirectoryMember {
   id: number;
   title: string;
   slug: string;
   personnel_type: "faculty" | "academic_staff" | "laboratory_technician";
   personnel_type_display: string;
-  faculty_status: "" | "active_full_time" | "study_leave" | "sabbatical_leave";
+  service_classification: FacultyServiceClassification;
+  service_classification_display: string;
+  faculty_status: FacultyStatus;
   faculty_status_display: string;
   position: string;
   employment_classification: string;
   faculty_category: string;
   highest_degree: string;
+  profile_summary: string;
   email: string;
   phone: string;
   photo: string | null;
-  educational_background: string;
   specialization_areas: string;
   research_interests: string;
   courses_taught: string;
-  advising_areas: string;
-  certifications: string;
-  awards: string;
+  teaching_areas: string;
   office: string;
+  home_unit: string;
+  supporting_programs: string;
+  msca_roles: string;
+  active_affiliation: boolean;
   seo_title: string;
   seo_description: string;
   og_title: string;
   og_description: string;
   featured: boolean;
   is_published: boolean;
+  sort_order: number;
   updated_at: string;
+  supervised_works_count: number;
+  publications_count: number;
+  research_projects_count: number;
+  extension_projects_count: number;
+}
+
+export interface FacultyEducation {
+  id: number;
+  degree_level: "doctorate" | "masters" | "bachelors" | "other";
+  degree_level_display: string;
+  degree_name: string;
+  field_or_specialization: string;
+  institution: string;
+  year_completed: number | null;
+  notes: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyExpertise {
+  id: number;
+  expertise_type: "expertise" | "research_interest" | "teaching_area" | "msca_course_support";
+  expertise_type_display: string;
+  title: string;
+  description: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultySupervisedWork {
+  id: number;
+  program_level: "BSCA" | "MSCA";
+  program_level_display: string;
+  title: string;
+  researchers: string;
+  adviser: string;
+  co_adviser: string;
+  abstract: string;
+  award: string;
+  academic_year: string;
+  completion_year: number | null;
+  faculty_role: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyPublication {
+  id: number;
+  title: string;
+  authors: string;
+  venue: string;
+  publication_type: string;
+  publication_date: string | null;
+  year: number | null;
+  doi: string;
+  url: string;
+  indexing_note: string;
+  citation_text: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyConference {
+  id: number;
+  title: string;
+  conference_name: string;
+  location: string;
+  event_date: string | null;
+  year: number | null;
+  role: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyResearchProject {
+  id: number;
+  funding_type: "internal" | "external";
+  funding_type_display: string;
+  title: string;
+  funding_source: string;
+  role: string;
+  implementation_period: string;
+  start_year: number | null;
+  end_year: number | null;
+  amount: string;
+  status: string;
+  outputs_or_evidence: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyExtensionProject {
+  id: number;
+  title: string;
+  funding_source: string;
+  role: string;
+  implementation_period: string;
+  partner_community: string;
+  start_year: number | null;
+  end_year: number | null;
+  status: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyCreativeWork {
+  id: number;
+  title: string;
+  category: string;
+  work_date: string | null;
+  year: number | null;
+  description: string;
+  role: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyTrainingSeminar {
+  id: number;
+  title: string;
+  organizer: string;
+  event_date: string | null;
+  year: number | null;
+  role: string;
+  venue: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyAchievement {
+  id: number;
+  title: string;
+  awarding_body: string;
+  achievement_date: string | null;
+  year: number | null;
+  description: string;
+  level: string;
+  evidence_url: string;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FacultyMember extends FacultyDirectoryMember {
+  educational_background: string;
+  advising_areas: string;
+  certifications: string;
+  awards: string;
+  appointment_or_assignment_note: string;
+  start_year: number | null;
+  end_year: number | null;
   evidence_documents: string[];
+  education_records: FacultyEducation[];
+  expertise_records: FacultyExpertise[];
+  supervised_works: FacultySupervisedWork[];
+  publications: FacultyPublication[];
+  conferences: FacultyConference[];
+  research_projects: FacultyResearchProject[];
+  extension_projects: FacultyExtensionProject[];
+  creative_works: FacultyCreativeWork[];
+  training_seminars: FacultyTrainingSeminar[];
+  achievements: FacultyAchievement[];
 }
 
 export interface NewsPost {
