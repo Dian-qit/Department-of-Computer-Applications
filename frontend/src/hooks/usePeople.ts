@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchJSON } from "@/lib/api";
-import type { FacultyMember } from "@/types/api";
+import type { FacultyDirectoryMember, FacultyMember } from "@/types/api";
 
 export function useFaculty() {
-  return useQuery<FacultyMember[]>({
+  return useQuery<FacultyDirectoryMember[]>({
     queryKey: ["people", "faculty"],
-    queryFn: () => fetchJSON<FacultyMember[]>("/api/people/faculty/"),
+    queryFn: () => fetchJSON<FacultyDirectoryMember[]>("/api/people/faculty/"),
   });
 }
 

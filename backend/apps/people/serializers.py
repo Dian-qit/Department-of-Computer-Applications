@@ -1,11 +1,27 @@
 from rest_framework import serializers
-from .models import FacultyMember
+from .models import (
+    FacultyAchievement,
+    FacultyConference,
+    FacultyCreativeWork,
+    FacultyEducation,
+    FacultyExpertise,
+    FacultyExtensionProject,
+    FacultyMember,
+    FacultyPublication,
+    FacultyResearchProject,
+    FacultySupervisedWork,
+    FacultyTrainingSeminar,
+)
 
 
-class FacultyMemberSerializer(serializers.ModelSerializer):
-    evidence_documents = serializers.StringRelatedField(many=True, read_only=True)
+class FacultyDirectorySerializer(serializers.ModelSerializer):
     personnel_type_display = serializers.CharField(source="get_personnel_type_display", read_only=True)
     faculty_status_display = serializers.CharField(source="get_faculty_status_display", read_only=True)
+    service_classification_display = serializers.CharField(source="get_service_classification_display", read_only=True)
+    supervised_works_count = serializers.IntegerField(read_only=True)
+    publications_count = serializers.IntegerField(read_only=True)
+    research_projects_count = serializers.IntegerField(read_only=True)
+    extension_projects_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = FacultyMember
@@ -15,29 +31,141 @@ class FacultyMemberSerializer(serializers.ModelSerializer):
             "slug",
             "personnel_type",
             "personnel_type_display",
+            "service_classification",
+            "service_classification_display",
             "faculty_status",
             "faculty_status_display",
             "position",
             "employment_classification",
             "faculty_category",
             "highest_degree",
+            "profile_summary",
             "email",
             "phone",
             "photo",
-            "educational_background",
             "specialization_areas",
             "research_interests",
             "courses_taught",
-            "advising_areas",
-            "certifications",
-            "awards",
+            "teaching_areas",
             "office",
+            "home_unit",
+            "supporting_programs",
+            "msca_roles",
+            "active_affiliation",
             "seo_title",
             "seo_description",
             "og_title",
             "og_description",
             "featured",
             "is_published",
+            "sort_order",
             "updated_at",
+            "supervised_works_count",
+            "publications_count",
+            "research_projects_count",
+            "extension_projects_count",
+        ]
+
+
+class FacultyEducationSerializer(serializers.ModelSerializer):
+    degree_level_display = serializers.CharField(source="get_degree_level_display", read_only=True)
+
+    class Meta:
+        model = FacultyEducation
+        exclude = ["faculty"]
+
+
+class FacultyExpertiseSerializer(serializers.ModelSerializer):
+    expertise_type_display = serializers.CharField(source="get_expertise_type_display", read_only=True)
+
+    class Meta:
+        model = FacultyExpertise
+        exclude = ["faculty"]
+
+
+class FacultySupervisedWorkSerializer(serializers.ModelSerializer):
+    program_level_display = serializers.CharField(source="get_program_level_display", read_only=True)
+
+    class Meta:
+        model = FacultySupervisedWork
+        exclude = ["faculty"]
+
+
+class FacultyPublicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyPublication
+        exclude = ["faculty"]
+
+
+class FacultyConferenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyConference
+        exclude = ["faculty"]
+
+
+class FacultyResearchProjectSerializer(serializers.ModelSerializer):
+    funding_type_display = serializers.CharField(source="get_funding_type_display", read_only=True)
+
+    class Meta:
+        model = FacultyResearchProject
+        exclude = ["faculty"]
+
+
+class FacultyExtensionProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyExtensionProject
+        exclude = ["faculty"]
+
+
+class FacultyCreativeWorkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyCreativeWork
+        exclude = ["faculty"]
+
+
+class FacultyTrainingSeminarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyTrainingSeminar
+        exclude = ["faculty"]
+
+
+class FacultyAchievementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FacultyAchievement
+        exclude = ["faculty"]
+
+
+class FacultyMemberSerializer(FacultyDirectorySerializer):
+    evidence_documents = serializers.StringRelatedField(many=True, read_only=True)
+    education_records = FacultyEducationSerializer(many=True, read_only=True)
+    expertise_records = FacultyExpertiseSerializer(many=True, read_only=True)
+    supervised_works = FacultySupervisedWorkSerializer(many=True, read_only=True)
+    publications = FacultyPublicationSerializer(many=True, read_only=True)
+    conferences = FacultyConferenceSerializer(many=True, read_only=True)
+    research_projects = FacultyResearchProjectSerializer(many=True, read_only=True)
+    extension_projects = FacultyExtensionProjectSerializer(many=True, read_only=True)
+    creative_works = FacultyCreativeWorkSerializer(many=True, read_only=True)
+    training_seminars = FacultyTrainingSeminarSerializer(many=True, read_only=True)
+    achievements = FacultyAchievementSerializer(many=True, read_only=True)
+
+    class Meta(FacultyDirectorySerializer.Meta):
+        fields = FacultyDirectorySerializer.Meta.fields + [
+            "educational_background",
+            "advising_areas",
+            "certifications",
+            "awards",
+            "appointment_or_assignment_note",
+            "start_year",
+            "end_year",
             "evidence_documents",
+            "education_records",
+            "expertise_records",
+            "supervised_works",
+            "publications",
+            "conferences",
+            "research_projects",
+            "extension_projects",
+            "creative_works",
+            "training_seminars",
+            "achievements",
         ]
