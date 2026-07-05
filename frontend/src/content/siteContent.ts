@@ -26,32 +26,38 @@ export const primaryNavigation = [
 export const homepageSections = [
   {
     title: "Academic Programs",
-    description: "Undergraduate and graduate programs in computer applications.",
+    description:
+      "Undergraduate and graduate programs in computer applications.",
     href: "/programs",
   },
   {
     title: "Faculty",
-    description: "Academic staff profiles, specializations, and research interests.",
+    description:
+      "Academic staff profiles, specializations, and research interests.",
     href: "/faculty",
   },
   {
     title: "Research",
-    description: "Research agenda, projects, publications, laboratories, and student research.",
+    description:
+      "Research agenda, projects, publications, laboratories, and student research.",
     href: "/research",
   },
   {
     title: "Extension and Community Engagement",
-    description: "Community engagement activities and documented extension work.",
+    description:
+      "Community engagement activities and documented extension work.",
     href: "/extension",
   },
   {
     title: "Facilities",
-    description: "Teaching laboratories, equipment, software, and support spaces.",
+    description:
+      "Teaching laboratories, equipment, software, and support spaces.",
     href: "/facilities",
   },
   {
     title: "Quality Assurance and Accreditation",
-    description: "Program quality processes and accreditation-related evidence categories.",
+    description:
+      "Program quality processes and accreditation-related evidence categories.",
     href: "/accreditation",
   },
 ];
@@ -64,4 +70,211 @@ export const missingOfficialContent = [
   "Official facilities inventory, laboratory names, equipment lists, and software resources.",
   "Active international linkages, mobility activities, visiting scholars, internships, and collaborations.",
   "Official phone number, office hours, and inquiry-routing procedure.",
+];
+
+export const searchPages = [
+  { 
+    title: "Home",
+    keywords: ["home", "index"], 
+     ref: "/" },
+  { 
+    title: "About", 
+    keywords: ["about", "college"], 
+    href: "/about" },
+  { 
+    title: "History", 
+    keywords: ["history"], 
+    href: "/about/history" },
+  {
+    title: "Mission, Vision & Goals",
+    keywords: ["vision", "mission", "goals", "mvgo", "vmgo"],
+    href: "/about/vmgo",
+  },
+  {
+    title: "Chair Message",
+    keywords: ["chair", "message"],
+    href: "/about/chair-message",
+  },
+  {
+    title: "Organization",
+    keywords: ["organization", "structure"],
+    href: "/about/organization",
+  },
+  {
+    title: "Faculty and Staff",
+    keywords: ["faculty and staff", "staff"],
+    href: "/about/faculty-staff",
+  },
+  {
+    title: "Contact",
+    keywords: ["contact", "email", "phone"],
+    href: "/about/contact",
+  },
+  {
+    title: "Location",
+    keywords: ["location", "map", "address"],
+    href: "/about/location",
+  },
+  {
+    title: "Academic Programs",
+    keywords: ["programs", "academic programs"],
+    href: "/programs",
+  },
+  {
+    title: "BSCA",
+    keywords: ["bsca", "computer applications"],
+    href: "/programs/bsca",
+  },
+  { title: "MSCA", keywords: ["msca", "masters"], href: "/programs/msca" },
+  {
+    title: "Faculty",
+    keywords: ["faculty", "teachers", "professors"],
+    href: "/faculty",
+  },
+  {
+    title: "Faculty Profile",
+    keywords: ["profile", "faculty profile"],
+    href: "/faculty",
+  },
+  {
+    title: "Faculty Qualifications",
+    keywords: ["qualifications", "degrees"],
+    href: "/faculty/qualifications",
+  },
+  {
+    title: "Faculty Achievements",
+    keywords: ["achievements", "awards"],
+    href: "/faculty/achievements",
+  },
+  {
+    title: "Faculty Development",
+    keywords: ["development", "training"],
+    href: "/faculty/development",
+  },
+  { title: "Research", keywords: ["research"], href: "/research" },
+  {
+    title: "Research Focus Areas",
+    keywords: ["focus areas", "research focus"],
+    href: "/research/focus-areas",
+  },
+  {
+    title: "Research Faculty Profiles",
+    keywords: ["research faculty", "faculty profiles"],
+    href: "/research/faculty-profiles",
+  },
+  {
+    title: "Research Projects",
+    keywords: ["projects", "research projects"],
+    href: "/research/projects",
+  },
+  {
+    title: "Publications",
+    keywords: ["publications", "papers"],
+    href: "/research/publications",
+  },
+  {
+    title: "Research Labs",
+    keywords: ["labs", "laboratories"],
+    href: "/research/labs",
+  },
+  {
+    title: "Student Research",
+    keywords: ["student research"],
+    href: "/research/student-research",
+  },
+  {
+    title: "Collaborations",
+    keywords: ["collaborations", "partners"],
+    href: "/research/collaborations",
+  },
+  {
+    title: "Research Metrics",
+    keywords: ["metrics", "statistics"],
+    href: "/research/metrics",
+  },
+  {
+    title: "Extension",
+    keywords: ["extension", "community"],
+    href: "/extension",
+  },
+  {
+    title: "Extension Programs",
+    keywords: ["extension programs"],
+    href: "/extension/programs",
+  },
+  {
+    title: "Partnerships",
+    keywords: ["partnerships", "partners"],
+    href: "/extension/partnerships",
+  },
+  {
+    title: "Technology Transfer",
+    keywords: ["technology transfer", "tech transfer"],
+    href: "/extension/tech-transfer",
+  },
+  {
+    title: "Service Projects",
+    keywords: ["service projects"],
+    href: "/extension/service-projects",
+  },
+  {
+    title: "Impact",
+    keywords: ["impact", "outcomes"],
+    href: "/extension/impact",
+  },
+  {
+    title: "Current Students",
+    keywords: ["current students"],
+    href: "/students/current",
+  },
+  {
+    title: "Prospective Students",
+    keywords: ["prospective students", "admissions"],
+    href: "/students/prospective",
+  },
+  {
+    title: "Student Organizations",
+    keywords: ["organizations", "student organizations"],
+    href: "/students/organizations",
+  },
+  {
+    title: "Admissions",
+    keywords: ["admissions", "apply"],
+    href: "/admissions",
+  },
+  {
+    title: "Apply",
+    keywords: ["apply", "application"],
+    href: "/admissions/apply",
+  },
+  {
+    title: "Request Info",
+    keywords: ["request info", "information"],
+    href: "/admissions/request-info",
+  },
+  { title: "Alumni", keywords: ["alumni"], href: "/alumni" },
+  { title: "News and Events", keywords: ["news", "events"], href: "/news" },
+  { title: "Events", keywords: ["events", "calendar"], href: "/news/events" },
+  {
+    title: "Facilities",
+    keywords: ["facilities", "labs"],
+    href: "/facilities",
+  },
+  {
+    title: "International Linkages",
+    keywords: ["international", "linkages"],
+    href: "/international-linkages",
+  },
+  {
+    title: "Accreditation",
+    keywords: ["accreditation", "quality assurance"],
+    href: "/accreditation",
+  },
+  { title: "AACCUP", keywords: ["aaccup"], href: "/accreditation/aaccup" },
+  { title: "CHED", keywords: ["ched"], href: "/accreditation/ched" },
+  {
+    title: "AUN-QA",
+    keywords: ["aun", "aun-qa"],
+    href: "/accreditation/aun-qa",
+  },
 ];
